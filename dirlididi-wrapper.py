@@ -72,7 +72,7 @@ if __name__ == '__main__':
 			setup(user_token)
 		elif len(sys.argv) == 2 and option == '-u':
 			update()
-		elif len(sys.argv) == 4 and option == '-s':
+		elif len(sys.argv) == 5 and option == '-s':
 			problem_token = sys.argv[2]
 			executable_name = sys.argv[3]
 			source_name = sys.argv[4]
