@@ -20,6 +20,8 @@ def dirlididi_path(filename):
 def update():
 	print('Atualizando dirlididi...')
 	path = dirlididi_path('dirlididi-wrapper.py')
+	if os.path.exists(path):
+		os.remove(path)
 	urllib.urlretrieve('https://raw.githubusercontent.com/JoseRenan/dirlididi-wrapper/master/dirlididi-wrapper.py', path)
 	print('Atualizanção concluída.')
 
