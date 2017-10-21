@@ -38,14 +38,26 @@ def submit(problem_token, executable_name, source_name):
 		(dirlididi_path, problem_token, user_token, executable_name, source_name))
 
 
-if __name__ == '__main__':
-	option = sys.argv[1]
+def help():
+	print('Uso: dirlididi [OPÇÃO]')
+	print('Opções')
+	print('-i <token> - Instala e configura o dirlididi para submissões feitas com um determinado usuário que possui o token dado.')
+	print('-s <prob_token> <exec_file> <source_file> - Submete um código e seu executável para um determinado problema.')
+	print('-h - Exibe as opções de uso.')
 
-	if option.lower() == 'install' or option == '-i':
-		user_token = sys.argv[2]
-		setup(user_token)
-	elif option.lower() == 'submit' or option == '-s':
-		problem_token = sys.argv[2]
-		executable_name = sys.argv[3]
-		source_name = sys.argv[4]
-		submit(problem_token, executable_name, source_name)
+
+if __name__ == '__main__':
+	if len(sys.argv) > 1:
+		option = sys.argv[1]
+		if len(sys.argv) == 3 and option == '-i':
+			user_token = sys.argv[2]
+			setup(user_token)
+		elif len(sys.argv) == 4 and option == '-s':
+			problem_token = sys.argv[2]
+			executable_name = sys.argv[3]
+			source_name = sys.argv[4]
+			submit(problem_token, executable_name, source_name)
+		else:
+			help()
+	else:
+		help()
