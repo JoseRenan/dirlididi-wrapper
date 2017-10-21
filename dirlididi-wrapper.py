@@ -19,8 +19,8 @@ def dirlididi_path(filename):
 
 def update():
 	print('Atualizando dirlididi...')
-	dirlididi_path = dirlididi_path('dirlididi-wrapper.py')
-	urllib.urlretrieve('https://raw.githubusercontent.com/JoseRenan/dirlididi-wrapper/master/dirlididi-wrapper.py', dirlididi_path)
+	path = dirlididi_path('dirlididi-wrapper.py')
+	urllib.urlretrieve('https://raw.githubusercontent.com/JoseRenan/dirlididi-wrapper/master/dirlididi-wrapper.py', path)
 	print('Atualizanção concluída.')
 
 
@@ -46,7 +46,7 @@ def submit(problem_token, executable_name, source_name):
 	user_token = os.environ['DIRLIDIDI_USER_TOKEN']
 	path = os.environ['DIRLIDIDI_HOME'] + '/dirlididi.py'
 	os.system('bash -c "python %s submit %s %s %s %s"' %
-		(dirlididi_path, problem_token, user_token, executable_name, source_name))
+		(path, problem_token, user_token, executable_name, source_name))
 
 
 def help():
@@ -64,7 +64,7 @@ if __name__ == '__main__':
 		if len(sys.argv) == 3 and option == '-i':
 			user_token = sys.argv[2]
 			setup(user_token)
-		elif len(sys.argv) == 1 and option == '-u':
+		elif len(sys.argv) == 2 and option == '-u':
 			update()
 		elif len(sys.argv) == 4 and option == '-s':
 			problem_token = sys.argv[2]

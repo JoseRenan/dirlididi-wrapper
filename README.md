@@ -18,3 +18,11 @@ Para submeter a solução dos problemas do site, basta informar o token do probl
 ```sh
 $ dirlididi -s <token_problema> <exec> <source>
 ```
+
+## Atualização
+
+Para atualizar a versão do dirlididi-wrapper, você só precisa rodar o comando abaixo:
+
+```sh
+$ dirlididi -u
+```
