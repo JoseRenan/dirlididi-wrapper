@@ -1,4 +1,4 @@
-# [Leia essa página em português]('https://github.com/JoseRenan/dirlididi-wrapper/blob/master/README.md')
+# [Leia essa página em português](https://github.com/JoseRenan/dirlididi-wrapper/blob/master/README.md)
 
 # Dirlididi Wrapper
 
