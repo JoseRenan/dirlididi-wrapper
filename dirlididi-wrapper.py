@@ -5,7 +5,7 @@ import sys
 import urllib
 from os.path import expanduser
 import shutil
-import subprocess
+
 
 USER_HOME = expanduser('~')
 DIRLIDIDI_HOME = USER_HOME + '/.dirlididi-wrapper'
@@ -19,6 +19,10 @@ def dirlididi_path(filename):
 
 def update():
 	print('Atualizando dirlididi...')
+	path = dirlididi_path('dirlididi.py')
+	if os.path.exists(path):
+		os.remove(path)
+	urllib.urlretrieve('http://dirlididi.com/tools/dirlididi.py', path)
 	path = dirlididi_path('dirlididi-wrapper.py')
 	if os.path.exists(path):
 		os.remove(path)
