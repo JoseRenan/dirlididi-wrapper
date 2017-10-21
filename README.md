@@ -2,7 +2,7 @@
 
 # Dirlididi Wrapper
 
-Uma CLI wrapper para auxiliar no uso da ferramenta dirlididi.
+Uma CLI wrapper para auxiliar no uso da [ferramenta dirlididi](http://dirlididi.com).
 
 ## Instalação
 
