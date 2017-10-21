@@ -1,3 +1,5 @@
+# [Read this page in English](https://github.com/JoseRenan/dirlididi-wrapper/blob/master/README_en.md)
+
 # Dirlididi Wrapper
 
 Uma CLI wrapper para auxiliar no uso da ferramenta dirlididi.
