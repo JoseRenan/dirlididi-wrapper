@@ -1,8 +1,8 @@
-## Dirlididi Wrapper
+# Dirlididi Wrapper
 
 Uma CLI wrapper para auxiliar no uso da ferramenta dirlididi.
 
-# Instalação
+## Instalação
 
 Você precisa rodar o comando abaixo para instalar. Não se esqueça de substituir o `<TOKEN>` pelo token informado no dirlididi sem os `<>`.
 
@@ -11,7 +11,7 @@ $ wget https://raw.githubusercontent.com/JoseRenan/dirlididi-wrapper/master/dirl
 $ bash
 ```
 
-# Submissão de código
+## Submissão de código
 
 Para submeter a solução dos problemas do site, basta informar o token do problema, o executável e o código fonte da solução, como mostra o código abaixo:
 
