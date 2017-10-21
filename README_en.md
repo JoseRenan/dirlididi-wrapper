@@ -1,6 +1,6 @@
-# [Leia essa página em português](https://github.com/JoseRenan/dirlididi-wrapper/blob/master/README.md)
-
 # Dirlididi Wrapper
+
+[Leia essa página em português](https://github.com/JoseRenan/dirlididi-wrapper/blob/master/README.md)
 
 A CLI wrapper to assist in the use of [dirlididi tool](http://dirlididi.com).
 
