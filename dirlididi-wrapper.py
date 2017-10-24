@@ -40,7 +40,7 @@ def setup(user_token):
 	
 	print('Download concluído. Configurando ambiente...')
 
-	if os.environ['DIRLIDIDI_HOME'] != None:
+	if os.environ.get('DIRLIDIDI_HOME') != None:
 		with open(USER_HOME + '/.bashrc', 'a') as bashrc:
 			bashrc.write('\nexport DIRLIDIDI_HOME=' + DIRLIDIDI_HOME)
 			bashrc.write('\nexport DIRLIDIDI_USER_TOKEN=' + user_token)
