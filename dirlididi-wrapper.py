@@ -10,74 +10,88 @@ import shutil
 USER_HOME = expanduser('~')
 DIRLIDIDI_HOME = USER_HOME + '/.dirlididi-wrapper'
 
+def identify_and_compile(filename):
+	sep = filename.rfind('.')
+	type_file = filename[sep+1:]
+	if type_file == 'cpp':
+		compile_cpp(filename[:sep])
+	elif type_file == 'hs':
+		compile_hs(filename[:sep])
+	elif type_file == 'pl':
+		compile_hs(filename[:sep])
 
 def dirlididi_path(filename):
-	if not os.path.exists(DIRLIDIDI_HOME):
-		os.makedirs(DIRLIDIDI_HOME)
-	return os.path.join(DIRLIDIDI_HOME, filename)
+    if not os.path.exists(DIRLIDIDI_HOME):
+        os.makedirs(DIRLIDIDI_HOME)
+    return os.path.join(DIRLIDIDI_HOME, filename)
 
 
 def update():
-	print('Atualizando dirlididi...')
-	path = dirlididi_path('dirlididi.py')
-	if os.path.exists(path):
-		os.remove(path)
-	urllib.urlretrieve('http://dirlididi.com/tools/dirlididi.py', path)
-	path = dirlididi_path('dirlididi-wrapper.py')
-	if os.path.exists(path):
-		os.remove(path)
-	urllib.urlretrieve('https://raw.githubusercontent.com/JoseRenan/dirlididi-wrapper/master/dirlididi-wrapper.py', path)
-	print('Atualizanção concluída.')
+    print('Atualizando dirlididi...')
+    path = dirlididi_path('dirlididi.py')
+    if os.path.exists(path):
+        os.remove(path)
+    urllib.urlretrieve('http://dirlididi.com/tools/dirlididi.py', path)
+    path = dirlididi_path('dirlididi-wrapper.py')
+    if os.path.exists(path):
+        os.remove(path)
+    urllib.urlretrieve('https://raw.githubusercontent.com/JoseRenan/dirlididi-wrapper/master/dirlididi-wrapper.py', path)
+    print('Atualizanção concluída.')
 
 
 def setup(user_token):
 
-	print('Baixando dirlididi.py...')	
+    print('Baixando dirlididi.py...')
 
-	path = dirlididi_path('dirlididi.py')
-	shutil.copy('./dirlididi-wrapper.py', DIRLIDIDI_HOME + '/dirlididi-wrapper.py')
-	urllib.urlretrieve('http://dirlididi.com/tools/dirlididi.py', path)
-	
-	print('Download concluído. Configurando ambiente...')
+    path = dirlididi_path('dirlididi.py')
+    shutil.copy('./dirlididi-wrapper.py', DIRLIDIDI_HOME + '/dirlididi-wrapper.py')
+    urllib.urlretrieve('http://dirlididi.com/tools/dirlididi.py', path)
 
-	if os.environ.get('DIRLIDIDI_HOME') != None:
-		with open(USER_HOME + '/.bashrc', 'a') as bashrc:
-			bashrc.write('\nexport DIRLIDIDI_HOME=' + DIRLIDIDI_HOME)
-			bashrc.write('\nexport DIRLIDIDI_USER_TOKEN=' + user_token)
-			bashrc.write('\nalias dirlididi="python $DIRLIDIDI_HOME/dirlididi-wrapper.py"')
+    print('Download concluído. Configurando ambiente...')
 
-	print('Perfeito. Pronto pra usar =D')
+    if os.environ.get('DIRLIDIDI_HOME') != None:
+        with open(USER_HOME + '/.bashrc', 'a') as bashrc:
+            bashrc.write('\nexport DIRLIDIDI_HOME=' + DIRLIDIDI_HOME)
+            bashrc.write('\nexport DIRLIDIDI_USER_TOKEN=' + user_token)
+            bashrc.write('\nalias dirlididi="python $DIRLIDIDI_HOME/dirlididi-wrapper.py"')
+
+    print('Perfeito. Pronto pra usar =D')
 
 def submit(problem_token, executable_name, source_name):
-	user_token = os.environ['DIRLIDIDI_USER_TOKEN']
-	path = os.environ['DIRLIDIDI_HOME'] + '/dirlididi.py'
-	os.system('bash -c "python %s submit %s %s %s %s"' %
-		(path, problem_token, user_token, executable_name, source_name))
+    user_token = os.environ['DIRLIDIDI_USER_TOKEN']
+    path = os.environ['DIRLIDIDI_HOME'] + '/dirlididi.py'
+    os.system('bash -c "python %s submit %s %s %s %s"' %
+        (path, problem_token, user_token, executable_name, source_name))
 
 
 def help():
-	print('Uso: dirlididi [OPÇÃO]')
-	print('Opções')
-	print('-i <token> - (Re)instala e configura o dirlididi para submissões feitas com um determinado usuário que possui o token dado.')
-	print('-u - Atualiza o dirlididi-wrapper para a ultima versão.')
-	print('-s <prob_token> <exec_file> <source_file> - Submete um código e seu executável para um determinado problema.')
-	print('-h - Exibe as opções de uso.')
+    print('Uso: dirlididi [OPÇÃO]')
+    print('Opções')
+    print('-i <token> - (Re)instala e configura o dirlididi para submissões feitas com um determinado usuário que possui o token dado.')
+    print('-u - Atualiza o dirlididi-wrapper para a ultima versão.')
+    print('-s <prob_token> <exec_file> <source_file> - Submete um código e seu executável para um determinado problema.')
+	print('-c <source_file> - Identifica a linguagem pelo formato do arquivo e compila automaticamente.')
+    print('-h - Exibe as opções de uso.')
 
 
 if __name__ == '__main__':
-	if len(sys.argv) > 1:
-		option = sys.argv[1]
-		if len(sys.argv) == 3 and option == '-i':
-			user_token = sys.argv[2]
-			setup(user_token)
-		elif len(sys.argv) == 2 and option == '-u':
-			update()
-		elif len(sys.argv) == 5 and option == '-s':
-			problem_token = sys.argv[2]
-			executable_name = sys.argv[3]
-			source_name = sys.argv[4]
-			submit(problem_token, executable_name, source_name)
-		else:
-			help()
-	else:
-		help()
+    if len(sys.argv) > 1:
+        option = sys.argv[1]
+        if len(sys.argv) == 3 and option == '-i':
+            user_token = sys.argv[2]
+            setup(user_token)
+        elif len(sys.argv) == 2 and option == '-u':
+            update()
+        elif len(sys.argv) == 5 and option == '-s':
+            problem_token = sys.argv[2]
+            executable_name = sys.argv[3]
+            source_name = sys.argv[4]
+            submit(problem_token, executable_name, source_name)
+		elif len(sys.argv) == 3 and option == '-c':
+			souce_name = sys.argv[2]
+			identify_and_compile(source_name)
+
+        else:
+            help()
+    else:
+        help()
