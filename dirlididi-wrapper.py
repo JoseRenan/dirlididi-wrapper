@@ -42,6 +42,19 @@ def setup(user_token=None):
     if (user_token == None):
         print('Perfeito. Pronto pra usar =D')
     else:
+        bash_input = []
+        with open(USER_HOME + '/.bashrc', "r") as bashrc_in:        # apaga as variaveis
+            bash_input = bashrc_in.readlines()
+
+        with open(USER_HOME + '/.bashrc', "w") as bashrc_out:
+            for line in bash_input:
+                if line[0] == '#':
+                    bashrc_out.write(line)
+                elif not (("DIRLIDIDI_HOME" in line) or
+                    ("DIRLIDIDI_USER_TOKEN" in line) or
+                    ("alias dirlididi" in line)):
+                    bashrc_out.write(line)
+
         with open(USER_HOME + '/.bashrc', 'a') as bashrc:
             bashrc.write('\nexport DIRLIDIDI_HOME=' + DIRLIDIDI_HOME)
             bashrc.write('\nexport DIRLIDIDI_USER_TOKEN=' + user_token)
