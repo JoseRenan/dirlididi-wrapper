@@ -62,6 +62,7 @@ def help():
 	print('-u - Atualiza o dirlididi-wrapper para a ultima versão.')
 	print('-s <prob_token> <exec_file> <source_file> - Submete um código e seu executável para um determinado problema.')
 	print('-h - Exibe as opções de uso.')
+	print('Envie relatos de problemas e sugestões para <jose.luciano@ccc.ufcg.edu.br>') 
 
 
 if __name__ == '__main__':
