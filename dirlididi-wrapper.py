@@ -3,6 +3,7 @@
 import os
 import sys
 import urllib
+import argparse
 from os.path import expanduser
 import shutil
 
@@ -92,6 +93,15 @@ def identify_and_compile(filename):
 def autodetect_and_submit(problem_token, filename):
     executable_name = identify_and_compile(filename)
     submit(problem_token, executable_name, filename)
+
+
+def get_parser():
+    parser = argparse.ArgumentParser(description='Uma CLI wrapper para auxiliar no uso da ferramenta dirlididi.')
+    parser.add_argument('-i', help='(Re)instala e configura o dirlididi para submissões feitas com um determinado usuário que possui o token dado.', const='', nargs='?')
+    parser.add_argument('-u', help='Atualiza o dirlididi-wrapper para a ultima versão.',)
+    parser.add_argument('-s', help='<prob_token> <exec_file> <source_file> - Submete um código e seu executável para um determinado problema.',nargs=3)
+    parser.add_argument('-c', help='<prob_token> <source_file> - Submete um código e seu executável para um determinado problema.',nargs=2)
+    parser.add_argument('-h', help='Exibe as opções de uso.', default='',)
 
 def help():
     print('Uso: dirlididi [OPÇÃO]')
