@@ -97,12 +97,13 @@ def autodetect_and_submit(problem_token, filename):
 
 def get_parser():
     parser = argparse.ArgumentParser(description='Uma CLI wrapper para auxiliar no uso da ferramenta dirlididi.')
-    parser.add_argument('-i', help='<token>(opcional) (Re)instala e configura o dirlididi para submissões feitas com um determinado usuário que possui o token dado. Caso não seja informado o token,' +  
-            'irá recarregar os arquivos sem alterar o token de usuario', const=None, nargs='?')
-    parser.add_argument('-u', help='Atualiza o dirlididi-wrapper para a ultima versão.', nargs=1)
-    parser.add_argument('-s', help='<prob_token> <exec_file> <source_file> - Submete um código e seu executável para um determinado problema.', nargs=3)
-    parser.add_argument('-c', help='<source_file> - Submete um código e seu executável para um determinado problema.', nargs=1)
-    parser.add_argument('-cs', help='<prob_token> <source_file> - Compila automaticamente e submete o arquivo', nargs=2)
+    parser.add_argument('-i', help='(Re)instala e configura o dirlididi para submissoes feitas com um determinado usuario que possui o token dado.' + 
+        'Caso nao seja informado o token, ira recarregar os arquivos sem alterar o token de usuario', const=None, nargs='?', metavar='<token>')
+    parser.add_argument('-u', help='Atualiza o dirlididi-wrapper para a ultima versao.', action='store_true')
+    parser.add_argument('-s', help='Submete um codigo e seu executavel para um determinado problema.', 
+        nargs=3, metavar=('<prob_token>', '<exec_file>', '<source_file>'))
+    parser.add_argument('-c', help='Identifica a linguagem pelo formato do arquivo e compila automaticamente.', nargs=1, metavar='<source_file>')
+    parser.add_argument('-cs', help='Compila automaticamente e submete o arquivo', nargs=2, metavar=('<prob_token>', '<source_file>'))
     return parser
 
 
