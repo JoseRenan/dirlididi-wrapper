@@ -40,7 +40,7 @@ def setup(user_token):
     print('Download concluído. Configurando ambiente...')
 
     #if os.environ.get('DIRLIDIDI_HOME') != None:   #impedia de atualizar o user_token
-    if (user_token == None):
+    if (user_token == ' '):
         print('Perfeito. Pronto pra usar =D')
     else:
         bash_input = []
@@ -98,7 +98,7 @@ def autodetect_and_submit(problem_token, filename):
 def get_parser():
     parser = argparse.ArgumentParser(description='Uma CLI wrapper para auxiliar no uso da ferramenta dirlididi.')
     parser.add_argument('-i', help='(Re)instala e configura o dirlididi para submissoes feitas com um determinado usuario que possui o token dado.' + 
-        'Caso nao seja informado o token, ira recarregar os arquivos sem alterar o token de usuario', const=None, nargs='?', metavar='<token>')
+        'Caso nao seja informado o token, ira recarregar os arquivos sem alterar o token de usuario', const=' ', nargs='?', metavar='<token>')
     parser.add_argument('-u', help='Atualiza o dirlididi-wrapper para a ultima versao.', action='store_true')
     parser.add_argument('-s', help='Submete um codigo e seu executavel para um determinado problema.', 
         nargs=3, metavar=('<prob_token>', '<exec_file>', '<source_file>'))
