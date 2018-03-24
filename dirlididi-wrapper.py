@@ -119,9 +119,7 @@ def command_line_runner():
         update()
     
     elif(args['s']):
-        problem_token = args['s'][0]
-        executable_name = args['s'][1]
-        source_name = args['s'][2]
+        problem_token, executable_name, source_name = args['s']
         submit(problem_token, executable_name, source_name)
     
     elif(args['c']):
@@ -129,8 +127,7 @@ def command_line_runner():
         identify_and_compile(source_name)
     
     elif(args['cs']):
-        problem_token = args['cs'][0]
-        source_name = args['cs'][1]
+        problem_token, source_name = args['cs']
         autodetect_and_submit(problem_token, source_name)
     
     else:
