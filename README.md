@@ -4,6 +4,10 @@
 
 Uma CLI wrapper para auxiliar no uso da [ferramenta dirlididi](http://dirlididi.com).
 
+## Pré-requisito
+- Python 3
+
+
 ## Instalação
 
 Você precisa rodar o comando abaixo para instalar. Não se esqueça de substituir o `<TOKEN>` pelo token informado no dirlididi sem os `<>`.

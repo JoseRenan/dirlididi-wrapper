@@ -3,6 +3,7 @@
 import os
 import sys
 import urllib
+import argparse
 from os.path import expanduser
 import shutil
 
@@ -29,7 +30,7 @@ def update():
     print('Atualizanção concluída.')
 
 
-def setup(user_token=None):
+def setup(user_token):
     print('Baixando dirlididi.py...')
 
     path = dirlididi_path('dirlididi.py')
@@ -39,7 +40,7 @@ def setup(user_token=None):
     print('Download concluído. Configurando ambiente...')
 
     #if os.environ.get('DIRLIDIDI_HOME') != None:   #impedia de atualizar o user_token
-    if (user_token == None):
+    if (user_token == ' '):
         print('Perfeito. Pronto pra usar =D')
     else:
         bash_input = []
@@ -93,52 +94,51 @@ def autodetect_and_submit(problem_token, filename):
     executable_name = identify_and_compile(filename)
     submit(problem_token, executable_name, filename)
 
-def help():
-    print('Uso: dirlididi [OPÇÃO]')
-    print('Opções')
-    print('-i <token> - (Re)instala e configura o dirlididi para submissões feitas com um determinado usuário que possui o token dado.')
-    print('-i - Recarrega os arquivos sem alterar o token de usuario')
-    print('-u - Atualiza o dirlididi-wrapper para a ultima versão.')
-    print('-s <prob_token> <exec_file> <source_file> - Submete um código e seu executável para um determinado problema.')
-    print('-c <source_file> - Identifica a linguagem pelo formato do arquivo e compila automaticamente.')
-    print('-cs <prob_token> <source_file> - Compila automaticamente e submete o arquivo')
-    print('-h - Exibe as opções de uso.')
 
+def get_parser():
+    parser = argparse.ArgumentParser(description='Uma CLI wrapper para auxiliar no uso da ferramenta dirlididi.')
+    parser.add_argument('-i', help='(Re)instala e configura o dirlididi para submissoes feitas com um determinado usuario que possui o token dado.' + 
+        'Caso nao seja informado o token, ira recarregar os arquivos sem alterar o token de usuario', const=' ', nargs='?', metavar='<token>')
+    parser.add_argument('-u', help='Atualiza o dirlididi-wrapper para a ultima versao.', action='store_true')
+    parser.add_argument('-s', help='Submete um codigo e seu executavel para um determinado problema.', 
+        nargs=3, metavar=('<prob_token>', '<exec_file>', '<source_file>'))
+    parser.add_argument('-c', help='Identifica a linguagem pelo formato do arquivo e compila automaticamente.', nargs=1, metavar='<source_file>')
+    parser.add_argument('-cs', help='Compila automaticamente e submete o arquivo', nargs=2, metavar=('<prob_token>', '<source_file>'))
+    return parser
+
+
+def command_line_runner():
+    parser = get_parser()
+    args = vars(parser.parse_args())
+
+    if(args['i']):
+        user_token = args['i']
+        setup(user_token)
+
+    elif(args['u']):
+        update()
+    
+    elif(args['s']):
+        problem_token, executable_name, source_name = args['s']
+        submit(problem_token, executable_name, source_name)
+    
+    elif(args['c']):
+        source_name = args['c'][0]
+        identify_and_compile(source_name)
+    
+    elif(args['cs']):
+        problem_token, source_name = args['cs']
+        autodetect_and_submit(problem_token, source_name)
+    
+    else:
+        parser.print_help()
+
+
+    
 
 if __name__ == '__main__':
-    if len(sys.argv) > 1:
-        option = sys.argv[1]
-        if len(sys.argv) == 3 and option == '-i':
-            user_token = sys.argv[2]
-            setup(user_token)
+    command_line_runner()
 
-        elif len(sys.argv) == 2 and option == '-i':
-            setup()
 
-        elif len(sys.argv) == 2 and option == '-u':
-            update()
 
-        elif len(sys.argv) == 5 and option == '-s':
-            problem_token = sys.argv[2]
-            executable_name = sys.argv[3]
-            source_name = sys.argv[4]
-            submit(problem_token, executable_name, source_name)
 
-        elif len(sys.argv) == 4 and option == '-s':
-            problem_token = sys.argv[2]
-            executable_name = sys.argv[3]
-            submit(problem_token, executable_name, '')
-
-        elif len(sys.argv) == 3 and option == '-c':
-            source_name = sys.argv[2]
-            identify_and_compile(source_name)
-
-        elif len(sys.argv) == 4 and option == '-cs':
-            problem_token = sys.argv[2]
-            source_name = sys.argv[3]
-            autodetect_and_submit(problem_token, source_name)
-
-        else:
-            help()
-    else:
-        help()
